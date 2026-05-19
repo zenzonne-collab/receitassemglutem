@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz — Sem Glúten & Gostoso</title>
+  <link rel="stylesheet" href="quiz.css" />
+  <!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1295342276066939');
+fbq('track', 'PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1295342276066939&ev=PageView&noscript=1"/>
+</noscript>
+<!-- Fim Meta Pixel -->
+</head>
+<body>
+
+<div class="quiz-wrap">
+
+  <!-- Logo -->
+  <div class="quiz-logo">
+    <span>🍞 <em>Sem Glúten</em> &amp; Gostoso</span>
+  </div>
+
+  <!-- Barra de progresso -->
+  <div class="progress-bar-wrap">
+    <div class="progress-label">
+      <span>Pergunta <strong id="progress-step">1</strong> de <strong id="progress-total">5</strong></span>
+      <span>Quase lá ✨</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <!-- Etapa do quiz (perguntas) -->
+  <div id="quiz-stage"></div>
+
+  <!-- Etapa do resultado (oculta inicialmente) -->
+  <div id="result-stage" style="display:none">
+    <div class="result-card">
+      <span class="result-badge">✅ Perfil identificado</span>
+      <h1 class="result-title">Você está <em>pronta</em> para transformar sua cozinha!</h1>
+      <p class="result-desc">
+        Baseado nas suas respostas, criamos um acesso especial ao nosso app com receitas
+        selecionadas para o seu perfil — pães macios, saborosos e 100% sem glúten.
+      </p>
+
+      <div class="result-items">
+        <div class="result-item">
+          <span class="result-item-icon">📋</span>
+          <span>Mais de 30 receitas de pão sem glúten testadas</span>
+        </div>
+        <div class="result-item">
+          <span class="result-item-icon">⚡</span>
+          <span>Receitas rápidas para o dia a dia</span>
+        </div>
+        <div class="result-item">
+          <span class="result-item-icon">🥛</span>
+          <span>Opções sem ovo, sem leite e veganas</span>
+        </div>
+        <div class="result-item">
+          <span class="result-item-icon">📱</span>
+          <span>Acesso no celular, qualquer hora</span>
+        </div>
+      </div>
+
+      <button class="btn-cta" onclick="goToPurchase()">
+        Quero acesso agora →
+      </button>
+      <p class="result-guarantee">🔒 Acesso imediato · Pagamento seguro · Satisfação garantida</p>
+    </div>
+  </div>
+
+</div>
+
+<script src="quiz.js"></script>
+</body>
+</html>
