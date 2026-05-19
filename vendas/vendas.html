@@ -4,6 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sem Glúten & Gostoso — Receitas de Pães</title>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1295342276066939');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1295342276066939&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
@@ -57,10 +74,7 @@
     line-height: 1.2;
     margin-bottom: 16px;
   }
-  .hero h1 em {
-    color: var(--amber-light);
-    font-style: italic;
-  }
+  .hero h1 em { color: var(--amber-light); font-style: italic; }
   .hero .sub {
     color: rgba(255,255,255,0.75);
     font-size: clamp(1rem, 3.5vw, 1.15rem);
@@ -78,19 +92,8 @@
     margin: 0 auto;
     box-shadow: 0 24px 60px rgba(0,0,0,0.35);
   }
-  .price-from {
-    font-size: 13px;
-    color: var(--gray);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 2px;
-  }
-  .price-old {
-    font-size: 15px;
-    color: #bbb;
-    text-decoration: line-through;
-    margin-bottom: 4px;
-  }
+  .price-from { font-size: 13px; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+  .price-old { font-size: 15px; color: #bbb; text-decoration: line-through; margin-bottom: 4px; }
   .price-main {
     font-family: 'Playfair Display', serif;
     font-size: clamp(3.5rem, 14vw, 5.5rem);
@@ -100,11 +103,7 @@
     margin-bottom: 4px;
   }
   .price-main sup { font-size: 2rem; vertical-align: top; margin-top: 14px; display: inline-block; }
-  .price-note {
-    font-size: 12px;
-    color: var(--gray);
-    margin-bottom: 20px;
-  }
+  .price-note { font-size: 12px; color: var(--gray); margin-bottom: 20px; }
   .btn-buy {
     display: block;
     width: 100%;
@@ -125,123 +124,45 @@
   }
   .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(200,134,10,0.55); }
   .btn-buy span { display: block; font-size: 0.75rem; font-weight: 400; opacity: 0.9; margin-top: 2px; text-transform: none; letter-spacing: 0; }
-  .guarantee {
-    font-size: 12px;
-    color: var(--gray);
-    margin-top: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
+  .guarantee { font-size: 12px; color: var(--gray); margin-top: 14px; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
   /* SECTION */
   section { padding: 60px 24px; }
-  .section-label {
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.6rem, 6vw, 2.4rem);
-    color: var(--brown-dark);
-    text-align: center;
-    line-height: 1.25;
-    margin-bottom: 40px;
-  }
+  .section-label { font-size: 11px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; text-align: center; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 6vw, 2.4rem); color: var(--brown-dark); text-align: center; line-height: 1.25; margin-bottom: 40px; }
 
   /* FEATURES */
   .features { background: var(--white); }
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 24px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .feature-card {
-    background: var(--cream);
-    border-radius: 18px;
-    padding: 28px 24px;
-    border-left: 4px solid var(--amber);
-  }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto; }
+  .feature-card { background: var(--cream); border-radius: 18px; padding: 28px 24px; border-left: 4px solid var(--amber); }
   .feature-icon { font-size: 2rem; margin-bottom: 12px; }
   .feature-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 8px; color: var(--brown); }
   .feature-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
 
   /* SCREENSHOTS */
   .screenshots { background: var(--cream-dark); }
-  .screens-wrap {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    padding-bottom: 16px;
-    max-width: 900px;
-    margin: 0 auto;
-    scrollbar-width: none;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .screen-item {
-    flex: 0 0 220px;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 16px 40px rgba(0,0,0,0.18);
-    border: 3px solid rgba(200,134,10,0.3);
-    transition: transform 0.3s;
-  }
+  .screens-wrap { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 16px; max-width: 900px; margin: 0 auto; scrollbar-width: none; justify-content: center; flex-wrap: wrap; }
+  .screen-item { flex: 0 0 220px; border-radius: 20px; overflow: hidden; box-shadow: 0 16px 40px rgba(0,0,0,0.18); border: 3px solid rgba(200,134,10,0.3); transition: transform 0.3s; }
   .screen-item:hover { transform: translateY(-6px); }
   .screen-item img { width: 100%; display: block; }
-  .screen-cap {
-    background: var(--brown-dark);
-    color: white;
-    font-size: 13px;
-    font-weight: 700;
-    text-align: center;
-    padding: 10px;
-  }
+  .screen-cap { background: var(--brown-dark); color: white; font-size: 13px; font-weight: 700; text-align: center; padding: 10px; }
 
   /* TESTIMONIALS */
   .testimonials { background: var(--white); }
-  .testi-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .testi-card {
-    background: var(--cream);
-    border-radius: 18px;
-    padding: 24px;
-    position: relative;
-  }
-  .testi-card::before {
-    content: '"';
-    font-family: 'Playfair Display', serif;
-    font-size: 5rem;
-    color: var(--amber-light);
-    opacity: 0.3;
-    position: absolute;
-    top: 0; left: 16px;
-    line-height: 1;
-  }
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto; }
+  .testi-card { background: var(--cream); border-radius: 18px; padding: 24px; position: relative; }
+  .testi-card::before { content: '"'; font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--amber-light); opacity: 0.3; position: absolute; top: 0; left: 16px; line-height: 1; }
   .testi-stars { color: var(--amber); font-size: 1rem; margin-bottom: 10px; }
   .testi-text { font-size: 0.95rem; color: #444; line-height: 1.65; margin-bottom: 16px; font-style: italic; }
   .testi-author { display: flex; align-items: center; gap: 12px; }
   .testi-avatar {
-    width: 44px; height: 44px;
+    width: 52px; height: 52px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--amber), var(--brown));
-    display: flex; align-items: center; justify-content: center;
-    color: white; font-weight: 900; font-size: 1rem;
+    overflow: hidden;
     flex-shrink: 0;
+    border: 3px solid var(--amber);
   }
+  .testi-avatar img { width: 100%; height: 100%; object-fit: cover; }
   .testi-name { font-weight: 700; font-size: 0.95rem; color: var(--brown); }
   .testi-city { font-size: 0.8rem; color: var(--gray); }
 
@@ -249,79 +170,24 @@
   .inside { background: var(--brown-dark); }
   .inside .section-title { color: white; }
   .inside .section-label { color: var(--amber-light); }
-  .inside-list {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .inside-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 14px;
-    padding: 16px 20px;
-    border: 1px solid rgba(200,134,10,0.2);
-  }
+  .inside-list { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+  .inside-item { display: flex; align-items: flex-start; gap: 14px; background: rgba(255,255,255,0.06); border-radius: 14px; padding: 16px 20px; border: 1px solid rgba(200,134,10,0.2); }
   .inside-check { font-size: 1.3rem; flex-shrink: 0; }
   .inside-item p { color: rgba(255,255,255,0.85); font-size: 0.95rem; line-height: 1.5; }
   .inside-item strong { color: var(--amber-light); }
 
   /* CTA FINAL */
-  .cta-final {
-    background: linear-gradient(160deg, #C8860A, #F5A623);
-    padding: 60px 24px;
-    text-align: center;
-  }
-  .cta-final h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 7vw, 2.8rem);
-    color: white;
-    margin-bottom: 12px;
-    line-height: 1.2;
-  }
+  .cta-final { background: linear-gradient(160deg, #C8860A, #F5A623); padding: 60px 24px; text-align: center; }
+  .cta-final h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 7vw, 2.8rem); color: white; margin-bottom: 12px; line-height: 1.2; }
   .cta-final p { color: rgba(255,255,255,0.9); font-size: 1.05rem; margin-bottom: 32px; }
-  .price-final {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 12vw, 5rem);
-    font-weight: 900;
-    color: white;
-    margin-bottom: 8px;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  }
-  .btn-buy-final {
-    display: inline-block;
-    background: white;
-    color: var(--amber);
-    font-family: 'Lato', sans-serif;
-    font-size: 1.15rem;
-    font-weight: 900;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 20px 48px;
-    border-radius: 16px;
-    text-decoration: none;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    transition: transform 0.15s;
-  }
+  .price-final { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 12vw, 5rem); font-weight: 900; color: white; margin-bottom: 8px; text-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+  .btn-buy-final { display: inline-block; background: white; color: var(--amber); font-family: 'Lato', sans-serif; font-size: 1.15rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; padding: 20px 48px; border-radius: 16px; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.15s; }
   .btn-buy-final:hover { transform: translateY(-3px); }
   .cta-guarantee { color: rgba(255,255,255,0.85); font-size: 13px; margin-top: 16px; }
 
-  /* FOOTER */
-  footer {
-    background: var(--brown-dark);
-    color: rgba(255,255,255,0.4);
-    text-align: center;
-    padding: 24px;
-    font-size: 12px;
-  }
+  footer { background: var(--brown-dark); color: rgba(255,255,255,0.4); text-align: center; padding: 24px; font-size: 12px; }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   .hero > * { animation: fadeUp 0.7s ease both; }
   .hero-badge { animation-delay: 0.1s; }
   .hero h1 { animation-delay: 0.2s; }
@@ -336,13 +202,12 @@
   <div class="hero-badge">🌾 100% Sem Glúten</div>
   <h1>Pães <em>deliciosos</em><br>sem glúten, do jeito certo</h1>
   <p class="sub">Um app completo com receitas testadas, ingredientes ajustáveis e passo a passo simples — para toda a família comer bem e com saúde.</p>
-
   <div class="price-box">
     <div class="price-from">Acesso completo por apenas</div>
     <div class="price-old">De R$ 49,90</div>
     <div class="price-main"><sup>R$</sup>19<span style="font-size:2.5rem">,90</span></div>
     <div class="price-note">Pagamento único • Acesso imediato</div>
-    <a href="https://pay.kiwify.com.br/xUblKOv" class="btn-buy">
+    <a href="https://pay.kiwify.com.br/xUblKOv" class="btn-buy" onclick="fbq('track', 'InitiateCheckout')">
       QUERO MEU APP AGORA
       <span>Clique aqui e garanta seu acesso</span>
     </a>
@@ -435,7 +300,7 @@
       <div class="testi-stars">★★★★★</div>
       <p class="testi-text">Minha filha tem doença celíaca e eu não sabia mais o que fazer. Com esse app finalmente consegui fazer um pão que ela adora de verdade. Simples e gostoso!</p>
       <div class="testi-author">
-        <div class="testi-avatar">M</div>
+        <div class="testi-avatar"><img src="./foto1.png" alt="Mariana S."></div>
         <div>
           <div class="testi-name">Mariana S.</div>
           <div class="testi-city">São Paulo, SP</div>
@@ -446,7 +311,7 @@
       <div class="testi-stars">★★★★★</div>
       <p class="testi-text">Já comprei vários livros de receita sem glúten e nenhum chegou perto disso. O app é lindo, fácil de usar e as receitas funcionam de verdade. Vale cada centavo!</p>
       <div class="testi-author">
-        <div class="testi-avatar">R</div>
+        <div class="testi-avatar"><img src="./foto2.png" alt="Roberta L."></div>
         <div>
           <div class="testi-name">Roberta L.</div>
           <div class="testi-city">Curitiba, PR</div>
@@ -457,7 +322,7 @@
       <div class="testi-stars">★★★★★</div>
       <p class="testi-text">O pão de hambúrguer sem glúten ficou incrível! Meu marido não acreditou que era sem glúten. Já fiz três vezes essa semana. Super recomendo o app!</p>
       <div class="testi-author">
-        <div class="testi-avatar">A</div>
+        <div class="testi-avatar"><img src="./foto3.png" alt="Ana Paula F."></div>
         <div>
           <div class="testi-name">Ana Paula F.</div>
           <div class="testi-city">Belo Horizonte, MG</div>
@@ -472,7 +337,7 @@
   <h2>Comece hoje a cozinhar<br>com saúde e sabor</h2>
   <p>Acesso imediato. Pagamento único. Sem mensalidade.</p>
   <div class="price-final">R$ 19,90</div>
-  <a href="https://pay.kiwify.com.br/xUblKOv" class="btn-buy-final">GARANTIR MEU ACESSO AGORA</a>
+  <a href="https://pay.kiwify.com.br/xUblKOv" class="btn-buy-final" onclick="fbq('track', 'InitiateCheckout')">GARANTIR MEU ACESSO AGORA</a>
   <div class="cta-guarantee">🔒 Compra 100% segura via Kiwify</div>
 </section>
 
