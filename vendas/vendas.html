@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sem Glúten & Gostoso — Receitas de Pães</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brown-dark: #2C1A0E;
+    --brown: #4A2C14;
+    --amber: #C8860A;
+    --amber-light: #F5A623;
+    --cream: #FDF6EC;
+    --cream-dark: #F5E8D0;
+    --white: #ffffff;
+    --gray: #777;
+    --green: #2E7D32;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--brown-dark); overflow-x: hidden; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(170deg, #2C1A0E 0%, #4A2C14 50%, #3a2010 100%);
+    padding: 50px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(200,134,10,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--amber);
+    color: white;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    border-radius: 50px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 8vw, 3.2rem);
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .hero h1 em {
+    color: var(--amber-light);
+    font-style: italic;
+  }
+  .hero .sub {
+    color: rgba(255,255,255,0.75);
+    font-size: clamp(1rem, 3.5vw, 1.15rem);
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto 36px;
+  }
+
+  /* PRICE BOX */
+  .price-box {
+    background: white;
+    border-radius: 24px;
+    padding: 28px 32px;
+    max-width: 380px;
+    margin: 0 auto;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  }
+  .price-from {
+    font-size: 13px;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+  .price-old {
+    font-size: 15px;
+    color: #bbb;
+    text-decoration: line-through;
+    margin-bottom: 4px;
+  }
+  .price-main {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 14vw, 5.5rem);
+    font-weight: 900;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .price-main sup { font-size: 2rem; vertical-align: top; margin-top: 14px; display: inline-block; }
+  .price-note {
+    font-size: 12px;
+    color: var(--gray);
+    margin-bottom: 20px;
+  }
+  .btn-buy {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #C8860A, #F5A623);
+    color: white;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 18px;
+    border-radius: 14px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(200,134,10,0.45);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(200,134,10,0.55); }
+  .btn-buy span { display: block; font-size: 0.75rem; font-weight: 400; opacity: 0.9; margin-top: 2px; text-transform: none; letter-spacing: 0; }
+  .guarantee {
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  /* SECTION */
+  section { padding: 60px 24px; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+    color: var(--brown-dark);
+    text-align: center;
+    line-height: 1.25;
+    margin-bottom: 40px;
+  }
+
+  /* FEATURES */
+  .features { background: var(--white); }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .feature-card {
+    background: var(--cream);
+    border-radius: 18px;
+    padding: 28px 24px;
+    border-left: 4px solid var(--amber);
+  }
+  .feature-icon { font-size: 2rem; margin-bottom: 12px; }
+  .feature-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 8px; color: var(--brown); }
+  .feature-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+
+  /* SCREENSHOTS */
+  .screenshots { background: var(--cream-dark); }
+  .screens-wrap {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+    scrollbar-width: none;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .screen-item {
+    flex: 0 0 220px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+    border: 3px solid rgba(200,134,10,0.3);
+    transition: transform 0.3s;
+  }
+  .screen-item:hover { transform: translateY(-6px); }
+  .screen-item img { width: 100%; display: block; }
+  .screen-cap {
+    background: var(--brown-dark);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    padding: 10px;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--white); }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .testi-card {
+    background: var(--cream);
+    border-radius: 18px;
+    padding: 24px;
+    position: relative;
+  }
+  .testi-card::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    color: var(--amber-light);
+    opacity: 0.3;
+    position: absolute;
+    top: 0; left: 16px;
+    line-height: 1;
+  }
+  .testi-stars { color: var(--amber); font-size: 1rem; margin-bottom: 10px; }
+  .testi-text { font-size: 0.95rem; color: #444; line-height: 1.65; margin-bottom: 16px; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--amber), var(--brown));
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 900; font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .testi-name { font-weight: 700; font-size: 0.95rem; color: var(--brown); }
+  .testi-city { font-size: 0.8rem; color: var(--gray); }
+
+  /* WHAT'S INSIDE */
+  .inside { background: var(--brown-dark); }
+  .inside .section-title { color: white; }
+  .inside .section-label { color: var(--amber-light); }
+  .inside-list {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .inside-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 16px 20px;
+    border: 1px solid rgba(200,134,10,0.2);
+  }
+  .inside-check { font-size: 1.3rem; flex-shrink: 0; }
+  .inside-item p { color: rgba(255,255,255,0.85); font-size: 0.95rem; line-height: 1.5; }
+  .inside-item strong { color: var(--amber-light); }
+
+  /* CTA FINAL */
+  .cta-final {
+    background: linear-gradient(160deg, #C8860A, #F5A623);
+    padding: 60px 24px;
+    text-align: center;
+  }
+  .cta-final h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+    color: white;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .cta-final p { color: rgba(255,255,255,0.9); font-size: 1.05rem; margin-bottom: 32px; }
+  .price-final {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 12vw, 5rem);
+    font-weight: 900;
+    color: white;
+    margin-bottom: 8px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .btn-buy-final {
+    display: inline-block;
+    background: white;
+    color: var(--amber);
+    font-family: 'Lato', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 20px 48px;
+    border-radius: 16px;
+    text-decoration: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: transform 0.15s;
+  }
+  .btn-buy-final:hover { transform: translateY(-3px); }
+  .cta-guarantee { color: rgba(255,255,255,0.85); font-size: 13px; margin-top: 16px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--brown-dark);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero > * { animation: fadeUp 0.7s ease both; }
+  .hero-badge { animation-delay: 0.1s; }
+  .hero h1 { animation-delay: 0.2s; }
+  .hero .sub { animation-delay: 0.3s; }
+  .price-box { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🌾 100% Sem Glúten</div>
+  <h1>Pães <em>deliciosos</em><br>sem glúten, do jeito certo</h1>
+  <p class="sub">Um app completo com receitas testadas, ingredientes ajustáveis e passo a passo simples — para toda a família comer bem e com saúde.</p>
+
+  <div class="price-box">
+    <div class="price-from">Acesso completo por apenas</div>
+    <div class="price-old">De R$ 49,90</div>
+    <div class="price-main"><sup>R$</sup>19<span style="font-size:2.5rem">,90</span></div>
+    <div class="price-note">Pagamento único • Acesso imediato</div>
+    <a href="https://pay.kiwify.com.br/xUblKOv" class="btn-buy">
+      QUERO MEU APP AGORA
+      <span>Clique aqui e garanta seu acesso</span>
+    </a>
+    <div class="guarantee">🔒 Compra segura &nbsp;|&nbsp; Acesso imediato</div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-label">Por que é diferente</div>
+  <h2 class="section-title">Tudo que você precisa<br>em um só lugar</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <h3>Busca e filtros inteligentes</h3>
+      <p>Filtre por sem ovo, sem leite, vegano e muito mais. Encontre a receita certa em segundos.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚖️</div>
+      <h3>Ingredientes ajustáveis</h3>
+      <p>Ajuste as porções e os ingredientes se calculam automaticamente. Sem erro nas medidas.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3>Funciona sem internet</h3>
+      <p>Instale no celular e acesse suas receitas favoritas mesmo sem conexão, direto da cozinha.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">❤️</div>
+      <h3>Salve seus favoritos</h3>
+      <p>Guarde as receitas que sua família mais ama e acesse com um toque, sem precisar procurar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOTS -->
+<section class="screenshots">
+  <div class="section-label">Veja o app por dentro</div>
+  <h2 class="section-title">Bonito, fácil e feito<br>para a sua cozinha</h2>
+  <div class="screens-wrap">
+    <div class="screen-item">
+      <img src="./app_print_1.png" alt="Tela inicial do app">
+      <div class="screen-cap">🏠 Tela inicial</div>
+    </div>
+    <div class="screen-item">
+      <img src="./app_print_2.png" alt="Receita detalhada">
+      <div class="screen-cap">📋 Receita detalhada</div>
+    </div>
+    <div class="screen-item">
+      <img src="./app_print_3.png" alt="Lista de receitas">
+      <div class="screen-cap">🍞 Todas as receitas</div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE ESTÁ INCLUSO -->
+<section class="inside">
+  <div class="section-label">O que você recebe</div>
+  <h2 class="section-title">Tudo incluso no seu acesso</h2>
+  <div class="inside-list">
+    <div class="inside-item">
+      <div class="inside-check">🍞</div>
+      <p><strong>Receitas completas de pães sem glúten</strong> — pão caseiro, de hambúrguer, baguete, pão doce, sírio e muito mais</p>
+    </div>
+    <div class="inside-item">
+      <div class="inside-check">⚖️</div>
+      <p><strong>Ingredientes com ajuste automático de porções</strong> — sem errar a dose, sem desperdício</p>
+    </div>
+    <div class="inside-item">
+      <div class="inside-check">🔍</div>
+      <p><strong>Filtros por restrição alimentar</strong> — sem ovo, sem leite, vegano, e outros</p>
+    </div>
+    <div class="inside-item">
+      <div class="inside-check">📱</div>
+      <p><strong>App instalável no celular</strong> — funciona offline, como um app de verdade</p>
+    </div>
+    <div class="inside-item">
+      <div class="inside-check">✨</div>
+      <p><strong>Atualizações incluídas</strong> — novas receitas adicionadas sem custo extra</p>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="testimonials">
+  <div class="section-label">Quem já usa</div>
+  <h2 class="section-title">Famílias que voltaram a<br>comer pão com alegria</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Minha filha tem doença celíaca e eu não sabia mais o que fazer. Com esse app finalmente consegui fazer um pão que ela adora de verdade. Simples e gostoso!</p>
+      <div class="testi-author">
+        <div class="testi-avatar">M</div>
+        <div>
+          <div class="testi-name">Mariana S.</div>
+          <div class="testi-city">São Paulo, SP</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Já comprei vários livros de receita sem glúten e nenhum chegou perto disso. O app é lindo, fácil de usar e as receitas funcionam de verdade. Vale cada centavo!</p>
+      <div class="testi-author">
+        <div class="testi-avatar">R</div>
+        <div>
+          <div class="testi-name">Roberta L.</div>
+          <div class="testi-city">Curitiba, PR</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">O pão de hambúrguer sem glúten ficou incrível! Meu marido não acreditou que era sem glúten. Já fiz três vezes essa semana. Super recomendo o app!</p>
+      <div class="testi-author">
+        <div class="testi-avatar">A</div>
+        <div>
+          <div class="testi-name">Ana Paula F.</div>
+          <div class="testi-city">Belo Horizonte, MG</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <h2>Comece hoje a cozinhar<br>com saúde e sabor</h2>
+  <p>Acesso imediato. Pagamento único. Sem mensalidade.</p>
+  <div class="price-final">R$ 19,90</div>
+  <a href="https://pay.kiwify.com.br/xUblKOv" class="btn-buy-final">GARANTIR MEU ACESSO AGORA</a>
+  <div class="cta-guarantee">🔒 Compra 100% segura via Kiwify</div>
+</section>
+
+<footer>
+  <p>© 2026 Sem Glúten & Gostoso · Todos os direitos reservados</p>
+</footer>
+
+</body>
+</html>
