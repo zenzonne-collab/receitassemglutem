@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>Sem Glúten & Gostoso</title>
+  <link rel="manifest" href="manifest.json"/>
+  <meta name="theme-color" content="#2C1A0E"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <link rel="apple-touch-icon" href="icons/icon-192.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #1A0D05;
+      --surface:     #2C1A0E;
+      --surface2:    #3D2410;
+      --marrom:      #5C3317;
+      --dourado:     #C8860A;
+      --dourado-l:   #E8A94A;
+      --laranja:     #D4691E;
+      --creme:       #F5E6C8;
+      --creme-dim:   rgba(245,230,200,0.6);
+      --creme-faint: rgba(245,230,200,0.12);
+      --verde:       #6B8E3A;
+      --radius:      1.25rem;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--creme);
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(26,13,5,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(200,134,10,0.2);
+      padding: env(safe-area-inset-top, 0) 0 0;
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.85rem 1.25rem;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--creme);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .logo span { color: var(--dourado); }
+    .header-badge {
+      font-size: 0.7rem;
+      background: rgba(200,134,10,0.18);
+      border: 1px solid rgba(200,134,10,0.35);
+      color: var(--dourado-l);
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 2rem 1.25rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -40px; right: -60px;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(200,134,10,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 6vw, 2.4rem);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .hero-title em { color: var(--dourado); font-style: italic; }
+    .hero-sub {
+      font-size: 0.88rem;
+      color: var(--creme-dim);
+      font-weight: 300;
+    }
+
+    /* ===== BUSCA ===== */
+    .search-wrap {
+      padding: 0 1.25rem 1rem;
+    }
+    .search-box {
+      display: flex; align-items: center; gap: 0.75rem;
+      background: var(--surface);
+      border: 1px solid rgba(200,134,10,0.2);
+      border-radius: 999px;
+      padding: 0.75rem 1.25rem;
+      transition: border-color 0.2s;
+    }
+    .search-box:focus-within { border-color: var(--dourado); }
+    .search-box input {
+      flex: 1; background: none; border: none; outline: none;
+      color: var(--creme); font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+    }
+    .search-box input::placeholder { color: rgba(245,230,200,0.3); }
+    .search-icon { color: var(--dourado); font-size: 1.1rem; }
+
+    /* ===== CATEGORIAS ===== */
+    .section-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--dourado);
+      padding: 0 1.25rem;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+    .categorias {
+      display: flex; gap: 0.6rem;
+      padding: 0 1.25rem 1.25rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .categorias::-webkit-scrollbar { display: none; }
+    .cat-btn {
+      flex-shrink: 0;
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(200,134,10,0.25);
+      background: var(--surface);
+      color: var(--creme-dim);
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .cat-btn.ativo, .cat-btn:hover {
+      background: var(--dourado);
+      color: var(--bg);
+      border-color: var(--dourado);
+    }
+
+    /* ===== DESTAQUES ===== */
+    .destaques {
+      display: flex; gap: 1rem;
+      padding: 0 1.25rem 1.5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .destaques::-webkit-scrollbar { display: none; }
+    .card-destaque {
+      flex-shrink: 0;
+      width: 200px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid rgba(200,134,10,0.15);
+    }
+    .card-destaque:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
+    .card-destaque-img {
+      height: 110px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+    }
+    .card-destaque-img.foto-wrap { font-size: 3.5rem; }
+    .card-destaque-badge {
+      position: absolute; top: 8px; right: 8px;
+      background: var(--dourado);
+      color: var(--bg);
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      z-index: 2;
+    }
+    .card-destaque-body { padding: 0.75rem; }
+    .card-destaque-nome {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+    .card-destaque-meta {
+      font-size: 0.72rem;
+      color: var(--creme-dim);
+      display: flex; gap: 0.75rem;
+    }
+
+    /* ===== LISTA DE RECEITAS ===== */
+    .receitas-lista {
+      padding: 0 1.25rem 8rem;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .card-receita {
+      display: flex; gap: 1rem; align-items: center;
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1rem;
+      cursor: pointer;
+      border: 1px solid rgba(200,134,10,0.12);
+      transition: all 0.2s;
+      animation: slideIn 0.4s ease both;
+    }
+    @keyframes slideIn {
+      from { opacity:0; transform:translateY(16px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .card-receita:hover {
+      border-color: rgba(200,134,10,0.4);
+      background: var(--surface2);
+      transform: translateX(4px);
+    }
+    .receita-emoji {
+      font-size: 2.8rem;
+      width: 64px; height: 64px;
+      background: var(--surface2);
+      border-radius: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .receita-info { flex: 1; min-width: 0; }
+    .receita-nome {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .receita-desc {
+      font-size: 0.78rem;
+      color: var(--creme-dim);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.4;
+    }
+    .receita-tags {
+      display: flex; gap: 0.4rem; margin-top: 0.4rem; flex-wrap: wrap;
+    }
+    .tag {
+      font-size: 0.65rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(200,134,10,0.15);
+      color: var(--dourado-l);
+      border: 1px solid rgba(200,134,10,0.25);
+    }
+    .receita-tempo {
+      text-align: right; color: var(--creme-dim);
+      font-size: 0.78rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+      flex-shrink: 0;
+    }
+    .favorito-btn {
+      background: none; border: none; cursor: pointer;
+      font-size: 1.2rem; line-height: 1;
+      transition: transform 0.2s;
+    }
+    .favorito-btn:hover { transform: scale(1.3); }
+
+    /* ===== NAV BOTTOM ===== */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: rgba(26,13,5,0.95);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(200,134,10,0.2);
+      padding: 0.75rem 0 calc(0.75rem + env(safe-area-inset-bottom, 0));
+      display: flex; justify-content: space-around;
+      z-index: 50;
+    }
+    .nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+      color: rgba(245,230,200,0.4);
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none; border: none;
+      padding: 0 1rem;
+    }
+    .nav-item.ativo { color: var(--dourado); }
+    .nav-item .nav-icon { font-size: 1.4rem; }
+
+    /* ===== MODAL / DRAWER ===== */
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 100;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+      backdrop-filter: blur(4px);
+    }
+    .overlay.aberto { opacity: 1; pointer-events: all; }
+
+    .drawer {
+      position: fixed; left: 0; right: 0; bottom: 0;
+      max-height: 92dvh;
+      background: var(--surface);
+      border-radius: 1.5rem 1.5rem 0 0;
+      z-index: 101;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+      overflow-y: auto;
+      padding-bottom: env(safe-area-inset-bottom, 1rem);
+      overscroll-behavior: contain;
+    }
+    .drawer.aberto { transform: translateY(0); }
+    .drawer-handle {
+      width: 40px; height: 4px;
+      background: rgba(245,230,200,0.2);
+      border-radius: 999px;
+      margin: 0.75rem auto 0;
+    }
+    .drawer-header {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.25rem 1.25rem 0.5rem;
+      border-bottom: 1px solid rgba(200,134,10,0.15);
+    }
+    .drawer-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+    .drawer-meta {
+      display: flex; gap: 1rem; margin-top: 0.5rem;
+      font-size: 0.8rem; color: var(--creme-dim);
+      flex-wrap: wrap;
+    }
+    .drawer-meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+    .drawer-body { padding: 1.25rem; }
+
+    .secao-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--dourado);
+      margin: 1.25rem 0 0.75rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .ingrediente-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(245,230,200,0.06);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .ingrediente-item.riscado {
+      opacity: 0.4;
+      text-decoration: line-through;
+    }
+    .check-box {
+      width: 22px; height: 22px;
+      border: 2px solid rgba(200,134,10,0.4);
+      border-radius: 6px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+      background: transparent;
+    }
+    .ingrediente-item.riscado .check-box {
+      background: var(--dourado);
+      border-color: var(--dourado);
+    }
+    .qtd { color: var(--dourado-l); font-weight: 700; margin-left: auto; font-size: 0.82rem; }
+
+    .passo {
+      display: flex; gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(245,230,200,0.06);
+    }
+    .passo-num {
+      width: 28px; height: 28px; flex-shrink: 0;
+      background: var(--dourado);
+      color: var(--bg);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.8rem;
+    }
+    .passo-txt { font-size: 0.9rem; line-height: 1.6; color: var(--creme-dim); }
+
+    .dica-box {
+      background: rgba(107,142,58,0.15);
+      border: 1px solid rgba(107,142,58,0.3);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #b8d88a;
+    }
+    .dica-box strong { display: block; margin-bottom: 0.3rem; }
+
+    /* ===== TELA FAVORITOS / DICAS ===== */
+    #tela-favoritos, #tela-dicas {
+      display: none;
+      padding: 1.5rem 1.25rem 8rem;
+    }
+    #tela-favoritos.ativo, #tela-dicas.ativo { display: block; }
+    #tela-inicio { display: block; }
+    #tela-inicio.oculto { display: none; }
+
+    .empty-state {
+      text-align: center; padding: 3rem 1rem;
+      color: var(--creme-dim);
+    }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; }
+    .empty-state p { font-size: 0.9rem; line-height: 1.6; }
+
+    /* ===== TIMER ===== */
+    .timer-wrap {
+      display: flex; align-items: center; gap: 0.75rem;
+      background: rgba(200,134,10,0.1);
+      border: 1px solid rgba(200,134,10,0.3);
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      margin-top: 0.5rem;
+    }
+    .timer-display {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--dourado);
+      min-width: 70px;
+    }
+    .timer-btn {
+      padding: 0.4rem 0.9rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(200,134,10,0.4);
+      background: transparent;
+      color: var(--creme);
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .timer-btn:hover { background: rgba(200,134,10,0.2); }
+
+    /* ===== PORÇÕES ===== */
+    .porcoes-ctrl {
+      display: flex; align-items: center; gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .porcao-btn {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid rgba(200,134,10,0.3);
+      color: var(--creme);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .porcao-btn:hover { background: rgba(200,134,10,0.2); }
+    .porcao-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--dourado);
+      min-width: 30px; text-align: center;
+    }
+
+    /* ===== SNACK / TOAST ===== */
+    .snack {
+      position: fixed; bottom: 5.5rem; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--surface2);
+      border: 1px solid rgba(200,134,10,0.4);
+      color: var(--creme);
+      padding: 0.65rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.83rem;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 200;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .snack.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ===== DICAS ===== */
+    .dica-card {
+      background: var(--surface);
+      border: 1px solid rgba(200,134,10,0.15);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .dica-card-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--dourado);
+      margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .dica-card p { font-size: 0.87rem; line-height: 1.65; color: var(--creme-dim); }
+
+    /* ===== FOTOS ===== */
+    .foto-wrap {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface2);
+    }
+    .foto-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      position: absolute;
+      inset: 0;
+    }
+    .foto-wrap img.carregada { opacity: 1; }
+    .emoji-fallback {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: inherit;
+      transition: opacity 0.3s;
+    }
+    .foto-wrap img.carregada ~ .emoji-fallback { opacity: 0; pointer-events: none; }
+
+    .shimmer {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(200,134,10,0.12) 40%,
+        rgba(200,134,10,0.22) 50%,
+        rgba(200,134,10,0.12) 60%,
+        transparent 100%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      pointer-events: none;
+    }
+    .foto-wrap img.carregada ~ .shimmer { display: none; }
+    @keyframes shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position:  200% 0; }
+    }
+
+    .drawer-foto {
+      width: 100%; height: 200px;
+      border-radius: 1.5rem 1.5rem 0 0;
+      overflow: hidden;
+      position: relative;
+      background: var(--surface2);
+      flex-shrink: 0;
+    }
+    .drawer-foto img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      display: block;
+      position: absolute;
+      inset: 0;
+    }
+    .drawer-foto img.carregada { opacity: 1; }
+    .drawer-foto .emoji-fallback { font-size: 5rem; }
+    .drawer-foto img.carregada ~ .emoji-fallback { opacity: 0; }
+    .drawer-foto .shimmer { border-radius: 0; }
+    .drawer-foto::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 60%;
+      background: linear-gradient(to top, var(--surface) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">🍞 <span>Sem Glúten</span> & Gostoso</div>
+    <span class="header-badge">🌾 Livre de glúten</span>
+  </div>
+</header>
+
+<!-- TELA INÍCIO -->
+<div id="tela-inicio">
+  <div class="hero">
+    <h1 class="hero-title">Cozinhe com<br/><em>amor e saúde</em> ✨</h1>
+    <p class="hero-sub">Receitas sem glúten para toda a família</p>
+  </div>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="search" id="busca" placeholder="Buscar receita…" autocomplete="off"/>
+    </div>
+  </div>
+
+  <p class="section-label">Filtrar por</p>
+  <div class="categorias" id="categorias">
+    <button class="cat-btn ativo" data-cat="todas">✨ Todas</button>
+    <button class="cat-btn" data-cat="semovo">🥚 Sem ovo</button>
+    <button class="cat-btn" data-cat="semleite">🥛 Sem leite</button>
+    <button class="cat-btn" data-cat="vegano">🌱 Vegano</button>
+    <button class="cat-btn" data-cat="doce">🍯 Doces</button>
+    <button class="cat-btn" data-cat="salgado">🧅 Salgados</button>
+    <button class="cat-btn" data-cat="rapido">⚡ Rápidas</button>
+    <button class="cat-btn" data-cat="proteico">💪 Proteicos</button>
+  </div>
+
+  <p class="section-label">Em destaque</p>
+  <div class="destaques" id="destaques"></div>
+
+  <p class="section-label" id="label-lista">Todas as receitas</p>
+  <div class="receitas-lista" id="lista-receitas"></div>
+</div>
+
+<!-- TELA FAVORITOS -->
+<div id="tela-favoritos">
+  <h2 style="font-family:'Playfair Display',serif; font-size:1.5rem; margin-bottom:1.5rem; color:var(--dourado)">♥ Meus Favoritos</h2>
+  <div id="lista-favoritos" class="receitas-lista" style="padding:0 0 2rem"></div>
+</div>
+
+<!-- TELA DICAS -->
+<div id="tela-dicas">
+  <h2 style="font-family:'Playfair Display',serif; font-size:1.5rem; margin-bottom:1.5rem; color:var(--dourado)">💡 Dicas & Substitutos</h2>
+  <div id="conteudo-dicas"></div>
+</div>
+
+<!-- NAV BOTTOM -->
+<nav class="bottom-nav">
+  <button class="nav-item ativo" data-tela="inicio">
+    <span class="nav-icon">🏠</span>Início
+  </button>
+  <button class="nav-item" data-tela="favoritos">
+    <span class="nav-icon">♥</span>Favoritos
+  </button>
+  <button class="nav-item" data-tela="dicas">
+    <span class="nav-icon">💡</span>Dicas
+  </button>
+</nav>
+
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-handle"></div>
+  <div id="drawer-content"></div>
+</div>
+<div class="snack" id="snack"></div>
+
+<script>
+const imagens = {
+  1:  'images/Pao-Caseiro-Sem-Ovos-e-Sem-Leite-Saboroso.jpg',
+  2:  'images/PAO-PARA-HOT-DOG-Correta.jpg',
+  3:  'images/pao-de-hamburguer-caseiro.jpg',
+  4:  'images/CjfjBZSQPI8W4i1VyloDo4iuHcL5Nhlgno3qspzO.jpeg',
+  5:  'images/maxresdefault.jpg',
+  6:  'images/pao-sirio-12-0911.jpg',
+  7:  'images/baguete.jpg',
+  8:  'images/pao-vegano-facil-rapido-com-aveia.jpg',
+  9:  'images/9EF55.jpg',
+  10: 'images/96682932_2684902734972511_627354937939984384_n.jpg',
+  11: 'images/images.jpg',
+  12: 'images/pao-de-batata-doce-fit-de-liquidificador-sem-gluten-sem-lactose.jpg',
+  13: 'images/Imagem-ilustrativa-de-pao-de-milho.webp',
+  14: 'images/Pao-de-chia-Receitas-e-Dicas-do-Chef-1200x800.jpg',
+  15: 'images/yt078_pao-de-cenoura_receita.jpg',
+  16: 'images/cbbcf4fa489d61b42aa4a35932850e0b_XL.jpg',
+  17: 'images/yt119_pao-de-forma-de-abobora_receita.jpg',
+  18: 'images/pao_frances_sem_gluten_9783_300_150.jpg',
+};
+
+function urlFoto(receitaId) { return imagens[receitaId] || ''; }
+
+function criarFotoWrap(receitaId, emoji, classes, bg, altura) {
+  const wrap = document.createElement('div');
+  wrap.className = `foto-wrap ${classes}`;
+  wrap.style.cssText = `background:${bg}; height:${altura};`;
+  const shimmerEl = document.createElement('div');
+  shimmerEl.className = 'shimmer';
+  const emojiFallback = document.createElement('div');
+  emojiFallback.className = 'emoji-fallback';
+  emojiFallback.textContent = emoji;
+  const img = document.createElement('img');
+  img.alt = '';
+  img.onload = () => { img.classList.add('carregada'); shimmerEl.style.display = 'none'; emojiFallback.style.opacity = '0'; };
+  img.onerror = () => { shimmerEl.remove(); img.style.display = 'none'; emojiFallback.style.opacity = '1'; };
+  wrap.appendChild(shimmerEl);
+  wrap.appendChild(emojiFallback);
+  wrap.appendChild(img);
+  img.src = urlFoto(receitaId);
+  return wrap;
+}
+
+const receitas = [
+  {
+    id: 1, emoji: '🍞', nome: 'Pão Caseiro Macio',
+    cat: 'pão', tempo: '1h 15 min', porcoes: 1, dificuldade: 'Fácil',
+    destaque: true, badgeDestaque: '⭐ Favorito',
+    desc: 'Pão macio sem glúten feito com farinha de arroz e amêndoas. Caseiro, leve e saboroso.',
+    tags: ['🌾 Sem glúten', '🫒 Azeite', '🍞 Fermentado'],
+    calorias: '180 kcal/fatia',
+    ingredientes: [
+      { nome: 'Farinha de arroz', qtd: '300g' },
+      { nome: 'Farinha de amêndoas', qtd: '50g' },
+      { nome: 'Fermento biológico seco', qtd: '10g' },
+      { nome: 'Sal', qtd: '5g' },
+      { nome: 'Água morna', qtd: '300ml' },
+      { nome: 'Azeite de oliva', qtd: '60ml' },
+    ],
+    passos: ['Em uma tigela grande, misture a farinha de arroz e a farinha de amêndoas com o fermento e o sal.','Adicione a água morna e o azeite de oliva à mistura seca.','Misture bem até formar uma massa homogênea. Ela deve ficar pegajosa — isso é normal.','Cubra a tigela com um pano úmido e deixe a massa descansar por cerca de 1 hora, ou até dobrar de tamanho.','Pré-aqueça o forno a 220°C.','Transfira a massa para uma forma de pão previamente untada.','Asse no forno por aproximadamente 40–50 minutos, ou até o pão estar dourado e fazer som oco ao bater na base.','Deixe esfriar completamente antes de cortar.'],
+    dica: '🌡️ A água morna ativa o fermento — deve estar entre 35°C e 40°C. Quente demais mata o fermento; fria demais ele não age.',
+    timer: 45 * 60,
+  },
+  {
+    id: 2, emoji: '🌭', nome: 'Pãozinhos de Hot Dog',
+    cat: 'pão', tempo: '1h 30 min', porcoes: 6, dificuldade: 'Médio',
+    destaque: true, badgeDestaque: '🌟 Popular',
+    desc: 'Pãozinhos macios e aerados para hot dog, feitos com farinha de arroz, amêndoas e psyllium.',
+    tags: ['🌾 Sem glúten', '🥚 Ovos', '🌱 Psyllium'],
+    calorias: '210 kcal/un',
+    ingredientes: [
+      { nome: 'Farinha de arroz', qtd: '200g' },
+      { nome: 'Farinha de amêndoas', qtd: '100g' },
+      { nome: 'Farinha de linhaça dourada', qtd: '50g' },
+      { nome: 'Psyllium em pó', qtd: '20g' },
+      { nome: 'Fermento biológico seco', qtd: '8g' },
+      { nome: 'Sal', qtd: '10g' },
+      { nome: 'Ovos', qtd: '3 un' },
+      { nome: 'Água morna', qtd: '300ml' },
+      { nome: 'Azeite de oliva', qtd: '50ml' },
+    ],
+    passos: ['Em uma tigela grande, misture a farinha de arroz, a farinha de amêndoas, a farinha de linhaça, o psyllium, o fermento e o sal.','Em outra tigela, bata os ovos e adicione a água morna e o azeite. Misture bem.','Despeje a mistura líquida nos ingredientes secos e misture até formar uma massa homogênea.','Divida a massa em 6 porções iguais e molde os pãezinhos no formato alongado de hot dog. Coloque em forma com papel manteiga.','Cubra com um pano limpo e deixe descansar por 1 hora para crescer.','Pré-aqueça o forno a 180°C.','Asse por aproximadamente 20–25 minutos, ou até que estejam dourados.','Deixe esfriar antes de cortar ao meio.'],
+    dica: '🌱 O psyllium é o segredo da textura elástica — não pule esse ingrediente! Encontrado em lojas de produtos naturais.',
+    timer: 22 * 60,
+  },
+  {
+    id: 3, emoji: '🍔', nome: 'Pão de Hambúrguer',
+    cat: 'pão', tempo: '1h 30 min', porcoes: 6, dificuldade: 'Médio',
+    destaque: false, badgeDestaque: '',
+    desc: 'Pãozinho macio e dourado para hambúrguer, feito com grão-de-bico, amêndoas e chia.',
+    tags: ['🌾 Sem glúten', '🫘 Grão-de-bico', '🌱 Chia'],
+    calorias: '220 kcal/un',
+    ingredientes: [
+      { nome: 'Farinha de grão-de-bico', qtd: '200g' },
+      { nome: 'Farinha de amêndoas', qtd: '100g' },
+      { nome: 'Fécula de batata', qtd: '50g' },
+      { nome: 'Sementes de chia', qtd: '20g' },
+      { nome: 'Fermento biológico seco', qtd: '8g' },
+      { nome: 'Sal', qtd: '10g' },
+      { nome: 'Ovos', qtd: '3 un' },
+      { nome: 'Água morna', qtd: '300ml' },
+      { nome: 'Azeite de oliva', qtd: '50ml' },
+    ],
+    passos: ['Em uma tigela grande, misture a farinha de grão-de-bico, a farinha de amêndoas, a fécula de batata, as sementes de chia, o fermento e o sal.','Em outra tigela, bata os ovos e adicione a água morna e o azeite de oliva. Misture bem.','Despeje a mistura líquida nos ingredientes secos e misture até formar uma massa homogênea.','Divida a massa em 6 porções iguais e molde os pãezinhos redondos. Coloque em forma forrada com papel manteiga.','Cubra com um pano limpo e deixe descansar por 1 hora para crescer.','Pré-aqueça o forno a 180°C.','Asse por aproximadamente 20–25 minutos, ou até que estejam dourados.','Deixe esfriar antes de cortar ao meio.'],
+    dica: '🌱 A chia hidratada age como ligante natural — você pode deixá-la de molho em 60ml de água por 10 min antes de misturar para uma textura ainda mais macia.',
+    timer: 22 * 60,
+  },
+  {
+    id: 4, emoji: '🍞', nome: 'Pão Doce',
+    cat: 'pão', tempo: '1h', porcoes: 1, dificuldade: 'Fácil',
+    destaque: true, badgeDestaque: '🧡 Especial',
+    desc: 'Pão doce sem glúten com farinha de arroz e coco, com frutas secas para um toque especial.',
+    tags: ['🥥 Coco', '🍇 Frutas secas', '🌾 Sem glúten'],
+    calorias: '190 kcal/fatia',
+    ingredientes: [
+      { nome: 'Farinha de arroz', qtd: '250g' },
+      { nome: 'Farinha de coco', qtd: '50g' },
+      { nome: 'Fermento biológico seco', qtd: '10g' },
+      { nome: 'Sal', qtd: '5g' },
+      { nome: 'Ovos', qtd: '4 un' },
+      { nome: 'Azeite de oliva', qtd: '60ml' },
+      { nome: 'Frutas secas (uvas-passas, tâmaras ou cranberries)', qtd: '100g' },
+    ],
+    passos: ['Em uma tigela grande, misture a farinha de arroz, a farinha de coco, o fermento e o sal.','Adicione os ovos, o azeite de oliva e as frutas secas à mistura seca.','Misture bem até formar uma massa homogênea.','Transfira a massa para uma forma de pão previamente untada.','Pré-aqueça o forno a 180°C.','Asse por aproximadamente 40–50 minutos, ou até o pão estar dourado e fazer som oco ao bater na base.','Deixe esfriar completamente antes de cortar.'],
+    dica: '🍇 As frutas secas afundam na massa? Passe-as em um pouco de farinha de arroz antes de misturar — elas ficam distribuídas de forma mais uniforme.',
+    timer: 45 * 60,
+  },
+  {
+    id: 5, emoji: '🧅', nome: 'Pão de Cebola',
+    cat: 'pão', tempo: '1h', porcoes: 1, dificuldade: 'Fácil',
+    destaque: false, badgeDestaque: '',
+    desc: 'Pão saboroso com cebola refogada, macio por dentro e dourado por fora. Um clássico sem glúten.',
+    tags: ['🧅 Cebola', '🫒 Azeite', '🌾 Sem glúten'],
+    calorias: '175 kcal/fatia',
+    ingredientes: [
+      { nome: 'Farinha de arroz', qtd: '250g' },
+      { nome: 'Farinha de amêndoas', qtd: '50g' },
+      { nome: 'Fermento biológico seco', qtd: '10g' },
+      { nome: 'Sal', qtd: '5g' },
+      { nome: 'Cebolas médias picadas e refogadas', qtd: '2 un' },
+      { nome: 'Ovos', qtd: '4 un' },
+      { nome: 'Azeite de oliva', qtd: '60ml' },
+    ],
+    passos: ['Em uma tigela grande, misture a farinha de arroz, a farinha de amêndoas, o fermento e o sal.','Adicione as cebolas refogadas e os ovos à mistura seca.','Misture bem até formar uma massa homogênea.','Transfira a massa para uma forma de pão previamente untada.','Pré-aqueça o forno a 180°C.','Asse por aproximadamente 40–50 minutos, ou até o pão estar dourado e fazer som oco ao bater na base.','Deixe esfriar completamente antes de cortar.'],
+    dica: '🧅 Refogue a cebola em fogo baixo com um fio de azeite até ficar bem caramelizada — isso intensifica o sabor e deixa o pão muito mais aromático.',
+    timer: 45 * 60,
+  },
+  {
+    id: 6, emoji: '🫓', nome: 'Pão Sírio',
+    cat: 'pão', tempo: '1h 30 min', porcoes: 6, dificuldade: 'Médio',
+    destaque: false, badgeDestaque: '',
+    desc: 'Discos finos e macios de pão sírio sem glúten, perfeitos para recheios e pastas.',
+    tags: ['🌾 Sem glúten', '🫒 Azeite', '⚡ Versátil'],
+    calorias: '160 kcal/un',
+    ingredientes: [
+      { nome: 'Farinha de arroz', qtd: '250g' },
+      { nome: 'Farinha de amêndoas', qtd: '50g' },
+      { nome: 'Fermento biológico seco', qtd: '10g' },
+      { nome: 'Sal', qtd: '5g' },
+      { nome: 'Água morna', qtd: '300ml' },
+      { nome: 'Azeite de oliva', qtd: '60ml' },
+    ],
+    passos: ['Em uma tigela grande, misture a farinha de arroz, a farinha de amêndoas e o sal.','Dissolva o fermento na água morna e deixe descansar por 5 minutos até formar espuma.','Adicione a mistura de fermento e o azeite aos ingredientes secos. Misture até massa homogênea e pegajosa.','Cubra com pano úmido e deixe descansar por 1 hora, até dobrar de tamanho.','Pré-aqueça o forno a 220°C.','Divida a massa em 6 porções e abra cada uma com rolo até obter discos finos.','Aqueça uma frigideira em fogo médio-alto. Cozinhe cada disco por cerca de 1 minuto de cada lado, até dourar levemente e formar bolhas.','Empilhe os pães prontos cobertos com um pano limpo enquanto prepara os demais.'],
+    dica: '🫓 A frigideira bem quente é o segredo das bolhas características do pão sírio. Não use óleo — a frigideira deve estar seca.',
+    timer: 60 * 60,
+  },
+  {
+    id: 7, emoji: '🥖', nome: 'Baguete Crocante',
+    cat: 'pão', tempo: '1h 45 min', porcoes: 2, dificuldade: 'Médio',
+    destaque: false, badgeDestaque: '',
+    desc: 'Baguete sem glúten com casca crocante e miolo macio. O segredo está no vapor dentro do forno.',
+    tags: ['🌾 Sem glúten', '🫒 Azeite', '🔥 Forno alto'],
+    calorias: '200 kcal/fatia',
+    ingredientes: [
+      { nome: 'Farinha de arroz', qtd: '300g' },
+      { nome: 'Farinha de amêndoas', qtd: '100g' },
+      { nome: 'Fermento biológico seco', qtd: '10g' },
+      { nome: 'Sal', qtd: '5g' },
+      { nome: 'Água morna', qtd: '300ml' },
+      { nome: 'Azeite de oliva', qtd: '60ml' },
+    ],
+    passos: ['Em uma tigela grande, misture a farinha de arroz, a farinha de amêndoas e o sal.','Dissolva o fermento na água morna e deixe descansar por 5 minutos até formar espuma.','Adicione a mistura de fermento e o azeite aos ingredientes secos. Misture até massa homogênea e pegajosa.','Cubra com pano úmido e deixe descansar por 1 hora, até dobrar de tamanho.','Pré-aqueça o forno a 220°C. Coloque uma forma com água quente na parte inferior do forno — o vapor cria a casca crocante.','Divida a massa em duas partes iguais. Modele cada uma em formato de baguete e coloque em assadeira com papel manteiga.','Faça cortes diagonais na superfície com uma faca afiada.','Asse por 30–35 minutos até as baguetes estarem bem douradas e fazerem som oco ao bater na base.','Deixe esfriar em grade antes de cortar.'],
+    dica: '💧 A forma com água quente no fundo do forno é essencial! O vapor nos primeiros minutos de forno é o que cria aquela casca dourada e crocante.',
+    timer: 33 * 60,
+  },
+  {
+    id: 8, emoji: '🥜', nome: 'Pão de Amendoim',
+    cat: 'pão', tempo: '1h 10 min', porcoes: 1, dificuldade: 'Fácil',
+    destaque: true, badgeDestaque: '🏅 Especial',
+    desc: 'Pão denso e nutritivo com farinha de amendoim, coco e amêndoas. Rico em proteína e sem glúten.',
+    tags: ['🥜 Amendoim', '🥥 Coco', '💪 Proteico'],
+    calorias: '230 kcal/fatia',
+    ingredientes: [
+      { nome: 'Farinha de amendoim', qtd: '200g' },
+      { nome: 'Farinha de coco', qtd: '100g' },
+      { nome: 'Farinha de amêndoas', qtd: '100g' },
+      { nome: 'Fermento químico em pó', qtd: '10g' },
+      { nome: 'Bicarbonato de sódio', qtd: '5g' },
+      { nome: 'Ovos', qtd: '4 un' },
+      { nome: 'Óleo de coco derretido', qtd: '60ml' },
+      { nome: 'Leite de amêndoas (ou outro leite vegetal)', qtd: '100ml' },
+    ],
+    passos: ['Pré-aqueça o forno a 180°C. Unte uma forma de pão e forre o fundo com papel manteiga.','Em uma tigela grande, misture as farinhas de amendoim, coco e amêndoas, o fermento em pó e o bicarbonato.','Em outra tigela, bata os ovos. Adicione o óleo de coco derretido e o leite de amêndoas. Misture bem.','Despeje a mistura líquida nos ingredientes secos e mexa até massa bem incorporada.','Despeje a massa na forma e alise a superfície.','Asse por 50–60 minutos, ou até que um palito inserido no centro saia limpo.','Deixe esfriar na forma por alguns minutos antes de transferir para uma grade.'],
+    dica: '🥜 A farinha de amendoim pode ser feita em casa: basta bater amendoins torrados sem sal no processador até virar pó fino. Mais barato e fresquinho!',
+    timer: 55 * 60,
+  },
+  {
+    id: 9, emoji: '🥔', nome: 'Pão de Mandioca',
+    cat: 'pão', tempo: '55 min', porcoes: 1, dificuldade: 'Fácil',
+    destaque: false, badgeDestaque: '',
+    desc: 'Pão rústico e macio feito com mandioca cozida e polvilho. Sabor caseiro, textura irresistível.',
+    tags: ['🌾 Sem glúten', '🥔 Mandioca', '🫒 Azeite'],
+    calorias: '170 kcal/fatia',
+    ingredientes: [
+      { nome: 'Polvilho doce', qtd: '2 xícaras' },
+      { nome: 'Polvilho azedo', qtd: '1 xícara' },
+      { nome: 'Mandioca cozida e amassada', qtd: '2 xícaras' },
+      { nome: 'Água morna', qtd: '½ xícara' },
+      { nome: 'Azeite de oliva', qtd: '¼ xícara' },
+      { nome: 'Sal', qtd: '1 col. chá' },
+    ],
+    passos: ['Pré-aqueça o forno a 180°C e unte uma forma de pão.','Em uma tigela grande, misture o polvilho doce e o polvilho azedo.','Adicione a mandioca amassada, a água morna, o azeite de oliva e o sal, misturando até formar uma massa homogênea.','Modele a massa em formato de pão e coloque na forma preparada.','Leve ao forno por cerca de 40 minutos, ou até que o pão esteja dourado e firme ao toque.','Deixe esfriar antes de servir.'],
+    dica: '🥔 Cozinhe a mandioca até ficar bem macia e amasse ainda quente — isso facilita a incorporação e deixa a massa mais uniforme. Evite usar a parte fibrosa do centro.',
+    timer: 40 * 60,
+  },
+  {
+    id: 10, emoji: '🌾', nome: 'Pão de Quinoa',
+    cat: 'pão', tempo: '55 min', porcoes: 1, dificuldade: 'Fácil',
+    destaque: false, badgeDestaque: '',
+    desc: 'Pão nutritivo e proteico feito com quinoa cozida e farinha de amêndoas. Leve, firme e saboroso.',
+    tags: ['🌾 Sem glúten', '💪 Proteico', '🥚 Ovos'],
+    calorias: '200 kcal/fatia',
+    ingredientes: [
+      { nome: 'Quinoa cozida', qtd: '2 xícaras' },
+      { nome: 'Farinha de amêndoas', qtd: '½ xícara' },
+      { nome: 'Ovos', qtd: '4 un' },
+      { nome: 'Azeite de oliva', qtd: '¼ xícara' },
+      { nome: 'Fermento em pó', qtd: '1 col. chá' },
+      { nome: 'Sal', qtd: 'a gosto' },
+    ],
+    passos: ['Pré-aqueça o forno a 180°C e unte uma forma de pão.','Em uma tigela, misture a quinoa cozida, a farinha de amêndoas, os ovos e o azeite de oliva até obter uma massa homogênea.','Adicione o fermento em pó e o sal, misturando bem.','Despeje a massa na forma preparada e leve ao forno por cerca de 45 minutos, ou até que o pão esteja dourado e firme.','Deixe esfriar antes de fatiar.'],
+    dica: '🌾 Cozinhe a quinoa com caldo de legumes no lugar da água para dar um sabor extra ao pão. Escorra bem e deixe esfriar antes de usar na massa.',
+    timer: 45 * 60,
+  },
+  {
+    id: 11, emoji: '🍌', nome: 'Pão de Aveia e Banana',
+    cat: 'pão', tempo: '40 min', porcoes: 1, dificuldade: 'Fácil',
+    destaque: false, badgeDestaque: '',
+    desc: 'Pão doce e aromático com banana madura e aveia certificada sem glúten. Perfeito para o café da manhã.',
+    tags: ['🍌 Banana', '🌾 Aveia SG', '🥥 Coco'],
+    calorias: '185 kcal/fatia',
+    ingredientes: [
+      { nome: 'Bananas maduras', qtd: '2 un' },
+      { nome: 'Ovos', qtd: '2 un' },
+      { nome: 'Óleo de coco', qtd: '¼ xícara' },
+      { nome: 'Aveia em flocos (certificada sem glúten)', qtd: '2 xícaras' },
+      { nome: 'Fermento em pó', qtd: '1 col. chá' },
+      { nome: 'Canela em pó', qtd: '1 col. chá' },
+    ],
+    passos: ['Pré-aqueça o forno a 180°C e unte uma forma de pão.','Em uma tigela, amasse as bananas até obter um purê bem liso.','Adicione os ovos e o óleo de coco ao purê. Misture bem.','Acrescente a aveia em flocos, o fermento em pó e a canela, misturando até incorporar tudo.','Despeje a massa na forma preparada e leve ao forno por aproximadamente 30 minutos, ou até que o pão esteja firme e dourado.','Deixe esfriar antes de fatiar e servir.'],
+    dica: '🍌 Quanto mais madura a banana, mais doce e aromático fica o pão — prefira bananas com casca bem manchada. E lembre-se: use apenas aveia com certificação "sem glúten" na embalagem!',
+    timer: 30 * 60,
+  },
+  {
+    id: 12, emoji: '🍠', nome: 'Pão de Batata Doce',
+    cat: 'pão', tempo: '50 min', porcoes: 1, dificuldade: 'Fácil',
+    destaque: false, badgeDestaque: '',
+    desc: 'Pão macio e levemente adocicado com purê de batata doce, farinha de arroz e polvilho. Nutritivo e sem glúten.',
+    tags: ['🍠 Batata doce', '🌾 Sem glúten', '🥥 Coco'],
+    calorias: '175 kcal/fatia',
+    ingredientes: [
+      { nome: 'Purê de batata doce', qtd: '2 xícaras' },
+      { nome: 'Ovos', qtd: '2 un' },
+      { nome: 'Óleo de coco', qtd: '¼ xícara' },
+      { nome: 'Farinha de arroz', qtd: '1 xícara' },
+      { nome: 'Polvilho doce', qtd: '½ xícara' },
+      { nome: 'Fermento em pó', qtd: '1 col. chá' },
+      { nome: 'Sal', qtd: 'a gosto' },
+    ],
+    passos: ['Pré-aqueça o forno a 180°C e unte uma forma de pão.','Em uma tigela grande, misture o purê de batata doce, os ovos e o óleo de coco.','Adicione a farinha de arroz, o polvilho doce, o fermento em pó e o sal, misturando bem até formar uma massa homogênea.','Despeje a massa na forma preparada e leve ao forno por aproximadamente 40 minutos, ou até que o pão esteja dourado e firme ao toque.','Deixe esfriar antes de fatiar e servir.'],
+    dica: '🍠 Cozinhe a batata doce no vapor (não na água) para o purê ficar mais concentrado e menos aguado — isso melhora muito a textura do pão.',
+    timer: 40 * 60,
+  },
+  {
+    id: 13, emoji: '🌽', nome: 'Pão de Milho',
+    cat: 'pão', tempo: '45 min', porcoes: 1, dificuldade: 'Fácil',
+    destaque: false, badgeDestaque: '',
+    desc: 'Pão amarelinho e levemente adocicado feito com fubá e farinha de arroz. Simples, gostoso e sem glúten.',
+    tags: ['🌽 Fubá', '🌾 Sem glúten', '🥥 Coco'],
+    calorias: '165 kcal/fatia',
+    ingredientes: [
+      { nome: 'Fubá de milho', qtd: '2 xícaras' },
+      { nome: 'Farinha de arroz', qtd: '1 xícara' },
+      { nome: 'Água morna', qtd: '1 xícara' },
+      { nome: 'Óleo de coco', qtd: '¼ xícara' },
+      { nome: 'Açúcar', qtd: '2 col. sopa' },
+      { nome: 'Fermento em pó', qtd: '1 col. chá' },
+      { nome: 'Sal', qtd: 'a gosto' },
+    ],
+    passos: ['Pré-aqueça o forno a 180°C e unte uma forma de pão.','Em uma tigela, misture o fubá de milho, a farinha de arroz, a água morna, o óleo de coco, o açúcar e o sal até formar uma massa homogênea.','Adicione o fermento em pó e misture delicadamente.','Despeje a massa na forma preparada e leve ao forno por aproximadamente 35 minutos, ou até que o pão esteja dourado e firme.','Deixe esfriar antes de fatiar e servir.'],
+    dica: '🌽 Para um pão de milho mais úmido e saboroso, substitua metade da água por leite de coco — ele combina perfeitamente com o fubá e deixa a textura muito mais macia.',
+    timer: 35 * 60,
+  },
+  {
+    id: 14, emoji: '🌱', nome: 'Pão de Chia',
+    cat: 'pão', tempo: '55 min', porcoes: 1, dificuldade: 'Fácil',
+    destaque: false, badgeDestaque: '',
+    desc: 'Pão nutritivo com aveia, linhaça e sementes de chia. Rico em fibras, sem glúten e levemente adoçado com mel.',
+    tags: ['🌱 Chia', '🌾 Aveia SG', '🍯 Mel'],
+    calorias: '190 kcal/fatia',
+    ingredientes: [
+      { nome: 'Farinha de aveia (certificada sem glúten)', qtd: '2 xícaras' },
+      { nome: 'Farinha de linhaça', qtd: '½ xícara' },
+      { nome: 'Sementes de chia', qtd: '¼ xícara' },
+      { nome: 'Fermento em pó', qtd: '1 col. chá' },
+      { nome: 'Sal', qtd: '1 col. chá' },
+      { nome: 'Mel (ou adoçante de preferência)', qtd: '2 col. sopa' },
+      { nome: 'Óleo de coco derretido', qtd: '¼ xícara' },
+      { nome: 'Água morna', qtd: '1 xícara' },
+    ],
+    passos: ['Pré-aqueça o forno a 180°C e unte uma forma de pão.','Em uma tigela grande, misture a farinha de aveia, a farinha de linhaça, as sementes de chia, o fermento em pó e o sal.','Adicione o mel e o óleo de coco derretido, misturando bem.','Gradualmente, adicione a água morna até obter uma massa homogênea.','Despeje a massa na forma preparada e leve ao forno por cerca de 45 minutos, ou até que o pão esteja dourado e firme.','Deixe esfriar antes de fatiar e servir.'],
+    dica: '🌱 A chia absorve muita água e engrossa a massa ao descansar — se a massa parecer muito líquida logo após misturar, aguarde 5 minutos antes de assar. Ela firma naturalmente.',
+    timer: 45 * 60,
+  },
+  {
+    id: 15, emoji: '🥕', nome: 'Pão de Cenoura e Girassol',
+    cat: 'pão', tempo: '50 min', porcoes: 1, dificuldade: 'Fácil',
+    destaque: false, badgeDestaque: '',
+    desc: 'Pão colorido e nutritivo com cenoura ralada fresca e sementes de girassol crocantes. Leve e sem glúten.',
+    tags: ['🥕 Cenoura', '🌻 Girassol', '🌾 Sem glúten'],
+    calorias: '185 kcal/fatia',
+    ingredientes: [
+      { nome: 'Cenouras grandes raladas', qtd: '2 un' },
+      { nome: 'Ovos', qtd: '3 un' },
+      { nome: 'Óleo de coco derretido', qtd: '¼ xícara' },
+      { nome: 'Farinha de amêndoas', qtd: '½ xícara' },
+      { nome: 'Farinha de arroz', qtd: '½ xícara' },
+      { nome: 'Sementes de girassol', qtd: '¼ xícara' },
+      { nome: 'Fermento em pó', qtd: '1 col. chá' },
+      { nome: 'Sal', qtd: 'a gosto' },
+    ],
+    passos: ['Pré-aqueça o forno a 180°C e unte uma forma de pão.','Em uma tigela, misture as cenouras raladas, os ovos e o óleo de coco.','Adicione a farinha de amêndoas, a farinha de arroz, as sementes de girassol, o fermento em pó e o sal, misturando bem.','Despeje a massa na forma preparada e leve ao forno por aproximadamente 40 minutos, ou até que o pão esteja dourado e firme.','Deixe esfriar antes de fatiar e servir.'],
+    dica: '🥕 Esprema levemente a cenoura ralada num pano limpo antes de misturar — ela solta bastante água e isso ajuda o pão a crescer melhor e ter textura mais firme.',
+    timer: 40 * 60,
+  },
+  {
+    id: 16, emoji: '🌿', nome: 'Pão de Batata e Alecrim',
+    cat: 'pão', tempo: '55 min', porcoes: 1, dificuldade: 'Fácil',
+    destaque: false, badgeDestaque: '',
+    desc: 'Pão rústico e aromático com purê de batata, farinha de grão-de-bico e alecrim fresco. Saboroso e sem glúten.',
+    tags: ['🥔 Batata', '🌿 Alecrim', '🫘 Grão-de-bico'],
+    calorias: '180 kcal/fatia',
+    ingredientes: [
+      { nome: 'Purê de batata', qtd: '2 xícaras' },
+      { nome: 'Ovos', qtd: '3 un' },
+      { nome: 'Azeite de oliva', qtd: '¼ xícara' },
+      { nome: 'Farinha de grão-de-bico', qtd: '1 xícara' },
+      { nome: 'Fermento em pó', qtd: '1 col. sopa' },
+      { nome: 'Alecrim fresco picado', qtd: '2 col. sopa' },
+      { nome: 'Sal', qtd: 'a gosto' },
+    ],
+    passos: ['Pré-aqueça o forno a 180°C e unte uma forma de pão.','Em uma tigela grande, misture o purê de batata, os ovos e o azeite de oliva.','Adicione a farinha de grão-de-bico, o fermento em pó, o alecrim e o sal, misturando bem.','Despeje a massa na forma preparada e leve ao forno por cerca de 45 minutos, ou até que o pão esteja dourado e firme.','Deixe esfriar antes de fatiar e servir.'],
+    dica: '🌿 Use alecrim fresco sempre que possível — o aroma é muito mais intenso que o seco. Antes de picar, esfregue os galhinhos entre as palmas das mãos para liberar os óleos essenciais.',
+    timer: 45 * 60,
+  },
+  {
+    id: 17, emoji: '🎃', nome: 'Pão de Abóbora e Gergelim',
+    cat: 'pão', tempo: '50 min', porcoes: 1, dificuldade: 'Fácil',
+    destaque: false, badgeDestaque: '',
+    desc: 'Pão macio e levemente adocicado com purê de abóbora e sementes de gergelim crocantes por cima.',
+    tags: ['🎃 Abóbora', '🌾 Sem glúten', '🌰 Gergelim'],
+    calorias: '170 kcal/fatia',
+    ingredientes: [
+      { nome: 'Purê de abóbora', qtd: '2 xícaras' },
+      { nome: 'Ovos', qtd: '2 un' },
+      { nome: 'Óleo de coco', qtd: '¼ xícara' },
+      { nome: 'Farinha de amêndoas', qtd: '½ xícara' },
+      { nome: 'Farinha de arroz', qtd: '½ xícara' },
+      { nome: 'Sementes de gergelim', qtd: '¼ xícara' },
+      { nome: 'Fermento em pó', qtd: '1 col. chá' },
+      { nome: 'Sal', qtd: 'a gosto' },
+    ],
+    passos: ['Pré-aqueça o forno a 180°C e unte uma forma de pão.','Em uma tigela, misture o purê de abóbora, os ovos e o óleo de coco.','Adicione a farinha de amêndoas, a farinha de arroz, as sementes de gergelim, o fermento em pó e o sal, misturando bem.','Despeje a massa na forma preparada e polvilhe mais gergelim por cima antes de levar ao forno.','Asse por aproximadamente 40 minutos, ou até que o pão esteja dourado e firme.','Deixe esfriar antes de fatiar e servir.'],
+    dica: '🎃 Torre o gergelim numa frigideira seca por 2 minutos antes de usar — o sabor fica muito mais intenso e o aroma de nozes fica irresistível no pão.',
+    timer: 40 * 60,
+  },
+  {
+    id: 18, emoji: '🌾', nome: 'Pão de Sorgo',
+    cat: 'pão', tempo: '50 min', porcoes: 1, dificuldade: 'Fácil',
+    destaque: false, badgeDestaque: '',
+    desc: 'Pão de forma macio feito com farinha de sorgo e polvilho. Uma alternativa nutritiva e saborosa ao trigo.',
+    tags: ['🌾 Sorgo', '🌾 Sem glúten', '🥚 Ovos'],
+    calorias: '175 kcal/fatia',
+    ingredientes: [
+      { nome: 'Farinha de sorgo', qtd: '2 xícaras' },
+      { nome: 'Polvilho doce', qtd: '1 xícara' },
+      { nome: 'Óleo de coco', qtd: '¼ xícara' },
+      { nome: 'Água morna', qtd: '1 xícara' },
+      { nome: 'Ovos', qtd: '2 un' },
+      { nome: 'Fermento em pó', qtd: '1 col. sopa' },
+      { nome: 'Sal', qtd: '1 col. chá' },
+    ],
+    passos: ['Pré-aqueça o forno a 180°C e unte uma forma de pão.','Em uma tigela grande, misture a farinha de sorgo e o polvilho doce.','Adicione o óleo de coco, a água morna, os ovos, o fermento em pó e o sal, misturando até formar uma massa homogênea.','Despeje a massa na forma preparada e leve ao forno por cerca de 40 minutos, ou até que o pão esteja dourado e firme.','Deixe esfriar antes de fatiar e servir.'],
+    dica: '🌾 A farinha de sorgo tem sabor neutro e levemente adocicado — é uma das melhores farinhas sem glúten para pão de forma. Procure em lojas de produtos naturais ou mercados com seção orgânica.',
+    timer: 40 * 60,
+  },
+];
+
+const dicas = [
+  { icon: '🌾', titulo: 'Farinhas sem glúten', txt: 'Farinha de arroz, polvilho azedo/doce, fécula de batata, farinha de amêndoas, farinha de coco e farinha de grão-de-bico são seus melhores aliados. Misture 2–3 tipos para resultados mais próximos do trigo.' },
+  { icon: '🔗', titulo: 'Ligantes naturais', txt: 'Sem glúten, a massa perde elasticidade. Use goma xantana (½ col. chá por 200g de farinha), psyllium, chia ou linhaça hidratada para dar estrutura às preparações.' },
+  { icon: '🏷️', titulo: 'Leia sempre os rótulos', txt: 'Molho de soja, aveia convencional, amido modificado e temperos industrializados podem conter glúten. Procure o símbolo 🌾 barrado ou a frase "não contém glúten".' },
+  { icon: '🍳', titulo: 'Evite contaminação cruzada', txt: 'Use utensílios, tábuas e formas exclusivos para preparo sem glúten. Teflon com arranhões retém farinha. Higienize muito bem ou separe um conjunto só para isso.' },
+  { icon: '🌡️', titulo: 'Temperatura importa', txt: 'Pães sem glúten geralmente precisam de temperatura mais alta no início (220°C) e redução depois. O calor alto cria a crosta que "segura" a estrutura sem o glúten.' },
+  { icon: '💧', titulo: 'Hidratação da massa', txt: 'Massas sem glúten costumam precisar de mais líquido. Não se assuste se a massa parecer muito mole — muitas vezes é assim mesmo. Siga a receita e confie no processo.' },
+  { icon: '❄️', titulo: 'Congele para facilitar', txt: 'Pão de queijo, tapioca e cookies podem ser congelados crus ou prontos. Congele em porções individuais e você terá snacks rápidos sempre à mão.' },
+  { icon: '🥚', titulo: 'O poder dos ovos', txt: 'Ovos são poderosos em receitas SG: a clara dá estrutura, a gema hidrata e enriquece. Em bolos, bata os ovos com o açúcar por pelo menos 3 minutos para incorporar ar.' },
+];
+
+// ── ESTADO ──
+let favoritoIds = JSON.parse(localStorage.getItem('favoritos') || '[]');
+let catAtual = 'todas';
+let buscaTerm = '';
+let timerInterval = null;
+let timerSegundos = 0;
+let porcoes = 1;
+let receitaAberta = null;
+let ingredientesRiscados = {};
+
+// ── HELPERS DE FILTRO ──
+function temOvo(r)        { return r.ingredientes.some(i => /\bovos?\b/i.test(i.nome)); }
+function temLaticinios(r) { return r.ingredientes.some(i => /\b(leite(?! de)|iogurte|manteiga|queijo|creme de leite)\b/i.test(i.nome)); }
+function temLeiteVeg(r)   { return r.ingredientes.some(i => /leite de (coco|amêndoa|arroz|aveia|castanha)/i.test(i.nome)); }
+function eDoce(r)         { return r.ingredientes.some(i => /\b(tâmara|damasco|cranberr|banana|maçã|abacaxi|uva.passa|frutas secas|coco ralado|açúcar|mel)\b/i.test(i.nome)); }
+function eSalgado(r)      { return r.ingredientes.some(i => /\b(cebola|alecrim|ervilha|hortelã|tomate|coentro|pimenta|cenoura|abóbora|gergelim)\b/i.test(i.nome)) && !eDoce(r); }
+function eVegano(r)       { return !temOvo(r) && !temLaticinios(r); }
+function eRapido(r)       { const m = parseInt(r.tempo); return !isNaN(m) && m <= 55; }
+function eProteico(r)     { return r.ingredientes.some(i => /\b(amendoim|amêndoa|grão-de-bico|ovos?|castanha|quinoa|sorgo|girassol)\b/i.test(i.nome)); }
+
+// ── RENDER ──
+function bgColor(cat) {
+  const map = { pão:'#3D2410', café:'#2A1A30', doce:'#3A1020', massa:'#0E2A20', lanche:'#1A2A0E', fitness:'#0E1A2A' };
+  return map[cat] || '#2C1A0E';
+}
+
+function renderDestaques() {
+  const container = document.getElementById('destaques');
+  container.innerHTML = '';
+  receitas.filter(r => r.destaque).forEach(r => {
+    const el = document.createElement('div');
+    el.className = 'card-destaque';
+    const fotoWrap = criarFotoWrap(r.id, r.emoji, 'card-destaque-img', bgColor(r.cat), '110px');
+    const badge = document.createElement('span');
+    badge.className = 'card-destaque-badge';
+    badge.textContent = r.badgeDestaque;
+    fotoWrap.appendChild(badge);
+    const body = document.createElement('div');
+    body.className = 'card-destaque-body';
+    body.innerHTML = `<div class="card-destaque-nome">${r.nome}</div><div class="card-destaque-meta"><span>⏱ ${r.tempo}</span><span>👤 ${r.porcoes} porç.</span></div>`;
+    el.appendChild(fotoWrap);
+    el.appendChild(body);
+    el.addEventListener('click', () => abrirReceita(r));
+    container.appendChild(el);
+  });
+}
+
+function receitasFiltradas() {
+  return receitas.filter(r => {
+    let porCat = false;
+    if      (catAtual === 'todas')    porCat = true;
+    else if (catAtual === 'semovo')   porCat = !temOvo(r);
+    else if (catAtual === 'semleite') porCat = !temLaticinios(r) && !temLeiteVeg(r);
+    else if (catAtual === 'vegano')   porCat = eVegano(r);
+    else if (catAtual === 'doce')     porCat = eDoce(r);
+    else if (catAtual === 'salgado')  porCat = eSalgado(r);
+    else if (catAtual === 'rapido')   porCat = eRapido(r);
+    else if (catAtual === 'proteico') porCat = eProteico(r);
+    else                              porCat = r.cat === catAtual;
+    const porBusca = !buscaTerm || r.nome.toLowerCase().includes(buscaTerm) || r.desc.toLowerCase().includes(buscaTerm);
+    return porCat && porBusca;
+  });
+}
+
+function renderLista(lista, containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  if (!lista.length) {
+    container.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><p>Nenhuma receita encontrada.<br/>Tente outra busca ou categoria.</p></div>`;
+    return;
+  }
+  lista.forEach((r, i) => {
+    const fav = favoritoIds.includes(r.id);
+    const el = document.createElement('div');
+    el.className = 'card-receita';
+    el.style.animationDelay = `${i * 0.06}s`;
+    const thumb = criarFotoWrap(r.id, r.emoji, 'receita-emoji', bgColor(r.cat), '64px');
+    thumb.style.borderRadius = '1rem';
+    thumb.style.flexShrink = '0';
+    const info = document.createElement('div');
+    info.className = 'receita-info';
+    info.innerHTML = `<div class="receita-nome">${r.nome}</div><div class="receita-desc">${r.desc}</div><div class="receita-tags">${r.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>`;
+    const tempo = document.createElement('div');
+    tempo.className = 'receita-tempo';
+    tempo.innerHTML = `<button class="favorito-btn" data-id="${r.id}" title="Favoritar">${fav ? '♥' : '♡'}</button><span>⏱</span><span>${r.tempo}</span>`;
+    el.appendChild(thumb);
+    el.appendChild(info);
+    el.appendChild(tempo);
+    el.addEventListener('click', e => { if (e.target.closest('.favorito-btn')) return; abrirReceita(r); });
+    tempo.querySelector('.favorito-btn').addEventListener('click', e => { e.stopPropagation(); toggleFavorito(r.id); });
+    container.appendChild(el);
+  });
+}
+
+function renderFavoritos() {
+  const lista = receitas.filter(r => favoritoIds.includes(r.id));
+  const container = document.getElementById('lista-favoritos');
+  if (!lista.length) {
+    container.innerHTML = `<div class="empty-state"><div class="icon">♡</div><p>Você ainda não tem favoritos.<br/>Toque no ♡ em qualquer receita!</p></div>`;
+    return;
+  }
+  renderLista(lista, 'lista-favoritos');
+}
+
+function renderDicas() {
+  const container = document.getElementById('conteudo-dicas');
+  container.innerHTML = dicas.map(d => `<div class="dica-card"><div class="dica-card-titulo">${d.icon} ${d.titulo}</div><p>${d.txt}</p></div>`).join('');
+}
+
+function formatarTempo(s) {
+  const m = Math.floor(s / 60), seg = s % 60;
+  return `${String(m).padStart(2,'0')}:${String(seg).padStart(2,'0')}`;
+}
+
+function abrirReceita(r) {
+  receitaAberta = r;
+  porcoes = r.porcoes;
+  ingredientesRiscados[r.id] = ingredientesRiscados[r.id] || [];
+  renderDrawer(r);
+  document.getElementById('overlay').classList.add('aberto');
+  document.getElementById('drawer').classList.add('aberto');
+  document.body.style.overflow = 'hidden';
+  pararTimer();
+}
+
+function fecharDrawer() {
+  document.getElementById('overlay').classList.remove('aberto');
+  document.getElementById('drawer').classList.remove('aberto');
+  document.body.style.overflow = '';
+  pararTimer();
+  receitaAberta = null;
+}
+
+function renderDrawer(r) {
+  const fav = favoritoIds.includes(r.id);
+  const ingredientesHTML = r.ingredientes.map((ing, i) => {
+    const riscado = (ingredientesRiscados[r.id] || []).includes(i) ? 'riscado' : '';
+    return `<div class="ingrediente-item ${riscado}" data-idx="${i}"><div class="check-box">${riscado ? '✓' : ''}</div><span>${ing.nome}</span><span class="qtd">${ing.qtd}</span></div>`;
+  }).join('');
+  const passosHTML = r.passos.map((p, i) => `<div class="passo"><div class="passo-num">${i+1}</div><div class="passo-txt">${p}</div></div>`).join('');
+  document.getElementById('drawer-content').innerHTML = `
+    <div id="drawer-foto-slot"></div>
+    <div class="drawer-header">
+      <div>
+        <div class="drawer-titulo">${r.nome}</div>
+        <div class="drawer-meta">
+          <span>⏱ ${r.tempo}</span>
+          <span>👤 ${r.porcoes} porç.</span>
+          <span>⚡ ${r.dificuldade}</span>
+          <span>🔥 ${r.calorias}</span>
+        </div>
+        <div style="margin-top:.5rem; display:flex; gap:.5rem; flex-wrap:wrap">${r.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+    </div>
+    <div class="drawer-body">
+      <p style="font-size:.88rem;line-height:1.6;color:var(--creme-dim);margin-top:.25rem">${r.desc}</p>
+      <div class="secao-titulo">🧅 Ingredientes</div>
+      <div class="porcoes-ctrl">
+        <span style="font-size:.82rem;color:var(--creme-dim)">Porções:</span>
+        <button class="porcao-btn" id="menos">−</button>
+        <span class="porcao-num" id="num-porcoes">${porcoes}</span>
+        <button class="porcao-btn" id="mais">+</button>
+      </div>
+      <div id="lista-ingredientes" style="margin-top:.75rem">${ingredientesHTML}</div>
+      <div class="secao-titulo">👩‍🍳 Modo de Preparo</div>
+      ${passosHTML}
+      ${r.timer ? `<div class="secao-titulo">⏱ Timer do Forno</div><div class="timer-wrap"><span style="font-size:1.2rem">🔥</span><span class="timer-display" id="timer-display">${formatarTempo(r.timer)}</span><button class="timer-btn" id="timer-start">▶ Iniciar</button><button class="timer-btn" id="timer-reset">↺</button></div>` : ''}
+      <div class="dica-box"><strong>💡 Dica do Chef</strong>${r.dica}</div>
+      <button onclick="toggleFavorito(${r.id})" style="width:100%;margin-top:1.25rem;padding:.9rem;background:${fav?'rgba(200,134,10,0.15)':'var(--dourado)'};color:${fav?'var(--dourado)':'var(--bg)'};border:1px solid var(--dourado);border-radius:1rem;font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;" id="fav-btn">${fav ? '♥ Salvo nos favoritos' : '♡ Salvar nos favoritos'}</button>
+    </div>`;
+  const fotoSlot = document.getElementById('drawer-foto-slot');
+  const fotoDrawer = criarFotoWrap(r.id, r.emoji, 'drawer-foto', bgColor(r.cat), '200px');
+  fotoSlot.appendChild(fotoDrawer);
+  document.querySelectorAll('.ingrediente-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const idx = parseInt(el.dataset.idx);
+      const lista = ingredientesRiscados[r.id];
+      if (lista.includes(idx)) { ingredientesRiscados[r.id] = lista.filter(i => i !== idx); }
+      else { lista.push(idx); }
+      renderDrawer(r);
+    });
+  });
+  document.getElementById('menos').addEventListener('click', () => { if(porcoes > 1) { porcoes--; renderDrawer(r); } });
+  document.getElementById('mais').addEventListener('click', () => { porcoes++; renderDrawer(r); });
+  if (r.timer) {
+    timerSegundos = r.timer;
+    document.getElementById('timer-start').addEventListener('click', () => {
+      const btn = document.getElementById('timer-start');
+      if (timerInterval) { pararTimer(); btn.textContent = '▶ Iniciar'; }
+      else {
+        btn.textContent = '⏸ Pausar';
+        timerInterval = setInterval(() => {
+          timerSegundos--;
+          const el = document.getElementById('timer-display');
+          if (el) el.textContent = formatarTempo(timerSegundos);
+          if (timerSegundos <= 0) { pararTimer(); showSnack('⏰ Timer finalizado!'); if (btn) btn.textContent = '▶ Iniciar'; }
+        }, 1000);
+      }
+    });
+    document.getElementById('timer-reset').addEventListener('click', () => {
+      pararTimer(); timerSegundos = r.timer;
+      const el = document.getElementById('timer-display');
+      if (el) el.textContent = formatarTempo(timerSegundos);
+      const btn = document.getElementById('timer-start');
+      if (btn) btn.textContent = '▶ Iniciar';
+    });
+  }
+}
+
+function pararTimer() { if (timerInterval) { clearInterval(timerInterval); timerInterval = null; } }
+
+function toggleFavorito(id) {
+  if (favoritoIds.includes(id)) { favoritoIds = favoritoIds.filter(i => i !== id); showSnack('Removido dos favoritos'); }
+  else { favoritoIds.push(id); showSnack('♥ Adicionado aos favoritos!'); }
+  localStorage.setItem('favoritos', JSON.stringify(favoritoIds));
+  renderLista(receitasFiltradas(), 'lista-receitas');
+  if (receitaAberta) renderDrawer(receitaAberta);
+}
+
+function irParaTela(tela) {
+  document.getElementById('tela-inicio').classList.toggle('oculto', tela !== 'inicio');
+  document.getElementById('tela-favoritos').classList.toggle('ativo', tela === 'favoritos');
+  document.getElementById('tela-dicas').classList.toggle('ativo', tela === 'dicas');
+  document.querySelectorAll('.nav-item').forEach(btn => btn.classList.toggle('ativo', btn.dataset.tela === tela));
+  if (tela === 'favoritos') renderFavoritos();
+}
+
+function showSnack(msg) {
+  const el = document.getElementById('snack');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+document.querySelectorAll('.nav-item').forEach(btn => btn.addEventListener('click', () => irParaTela(btn.dataset.tela)));
+document.getElementById('overlay').addEventListener('click', fecharDrawer);
+
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('ativo'));
+    btn.classList.add('ativo');
+    catAtual = btn.dataset.cat;
+    renderLista(receitasFiltradas(), 'lista-receitas');
+    const label = catAtual === 'todas' ? 'Todas as receitas' : btn.textContent.trim();
+    document.getElementById('label-lista').textContent = label;
+  });
+});
+
+document.getElementById('busca').addEventListener('input', e => {
+  buscaTerm = e.target.value.toLowerCase().trim();
+  renderLista(receitasFiltradas(), 'lista-receitas');
+});
+
+let startY = 0;
+document.getElementById('drawer').addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+document.getElementById('drawer').addEventListener('touchend', e => { if (e.changedTouches[0].clientY - startY > 80) fecharDrawer(); }, { passive: true });
+
+renderDestaques();
+renderLista(receitas, 'lista-receitas');
+renderDicas();
+
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js').catch(() => {}); }
+</script>
+</body>
+</html>

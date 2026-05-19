@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compra confirmada — Sem Glúten & Gostoso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Nunito:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: #1a1008;
+      color: #f5e6c8;
+      font-family: 'Nunito', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+    .card {
+      background: #241808;
+      border: 1px solid rgba(212,160,23,0.18);
+      border-radius: 16px;
+      padding: 40px 32px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+    .emoji { font-size: 3rem; margin-bottom: 16px; display: block; }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #f5e6c8;
+      margin-bottom: 8px;
+    }
+    h1 em { color: #d4a017; font-style: italic; }
+    p {
+      font-size: 0.95rem;
+      color: #a08060;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .timer {
+      font-size: 0.85rem;
+      color: #7a5a10;
+      margin-bottom: 20px;
+    }
+    .timer span {
+      color: #d4a017;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: #d4a017;
+      color: #1a1008;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .18s;
+    }
+    .btn:hover { background: #f0c040; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="emoji">🎉</span>
+    <h1>Compra <em>confirmada!</em></h1>
+    <p>Seja bem-vinda ao Sem Glúten & Gostoso! Suas receitas estão prontas para você explorar.</p>
+    <p class="timer">Redirecionando em <span id="count">5</span> segundos...</p>
+    <a class="btn" href="./app.html">Acessar minhas receitas agora →</a>
+  </div>
+
+  <script>
+    localStorage.setItem('pagou', 'true');
+
+    let n = 5;
+    const el = document.getElementById('count');
+    const interval = setInterval(() => {
+      n--;
+      el.textContent = n;
+      if (n <= 0) {
+        clearInterval(interval);
+        window.location.href = './app.html';
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
